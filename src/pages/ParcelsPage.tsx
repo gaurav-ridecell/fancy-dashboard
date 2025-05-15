@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { DateRange } from 'react-day-picker';
 import { addDays, subDays } from 'date-fns';
@@ -26,6 +25,7 @@ const ParcelsPage = () => {
     defaultDescription: 'Gérez, organisez et optimisez toutes vos parcelles agricoles'
   });
 
+  
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
   const [filterType, setFilterType] = useState('all');
@@ -66,6 +66,7 @@ const ParcelsPage = () => {
     syncWithOtherModules();
   }, [syncDataAcrossCRM]);
 
+  
   const handleExportData = () => {
     console.log("L'export de toutes les données des parcelles a démarré");
     console.log("Les données exportées sont maintenant disponibles dans le module Statistiques");
