@@ -1,81 +1,86 @@
 
-import { useAppSettings } from '@/contexts/AppSettingsContext';
-
-/**
- * Generate HTML content for preview based on data and columns
- */
+// Updated function signature to match the calls in use-preview-actions.ts
 export const generatePreviewHTML = (
   data: any[], 
-  moduleName: string,
-  title?: string,
+  moduleName: string, 
   columns?: { key: string, header: string }[],
   locale?: string
 ): string => {
-  if (!data || data.length === 0) {
-    return '<div class="p-4 text-center">Aucune donnée disponible pour l\'aperçu</div>';
+  const title = `Aperçu - ${moduleName}`;
+  
+  // Create basic HTML structure
+  let html = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>${title}</title>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <style>
+        body { font-family: system-ui, sans-serif; margin: 0; padding: 20px; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #f8f8f8; font-weight: 600; }
+        h1 { margin-bottom: 10px; }
+        .meta { color: #666; margin-bottom: 20px; font-size: 14px; }
+        .footer { margin-top: 30px; font-size: 12px; color: #666; border-top: 1px solid #ddd; padding-top: 10px; }
+      </style>
+    </head>
+    <body>
+      <h1>${title}</h1>
+      <div class="meta">
+        Généré le: ${new Date().toLocaleDateString(locale || 'fr-FR')}
+      </div>
+  `;
+
+  // Add table with data
+  if (data && data.length > 0) {
+    html += '<table><thead><tr>';
+    
+    // Table headers
+    if (columns && columns.length > 0) {
+      columns.forEach(column => {
+        html += `<th>${column.header}</th>`;
+      });
+    } else {
+      // Use object keys if no columns provided
+      Object.keys(data[0]).forEach(key => {
+        html += `<th>${key}</th>`;
+      });
+    }
+    
+    html += '</tr></thead><tbody>';
+    
+    // Table rows
+    data.forEach(item => {
+      html += '<tr>';
+      
+      if (columns && columns.length > 0) {
+        columns.forEach(column => {
+          html += `<td>${item[column.key] !== undefined ? item[column.key] : ''}</td>`;
+        });
+      } else {
+        Object.values(item).forEach(value => {
+          html += `<td>${value !== undefined ? value : ''}</td>`;
+        });
+      }
+      
+      html += '</tr>';
+    });
+    
+    html += '</tbody></table>';
+  } else {
+    html += '<p>Aucune donnée disponible</p>';
   }
 
-  const tableHeaders = (columns || Object.keys(data[0]).map(key => ({ key, header: key }))).map(
-    col => `<th class="px-4 py-2 bg-gray-100 border-b dark:bg-gray-700 dark:border-gray-600 dark:text-white">${col.header}</th>`
-  ).join('');
-
-  const tableRows = data.map(row => {
-    const cells = (columns || Object.keys(row).map(key => ({ key, header: key }))).map(
-      col => {
-        const value = row[col.key] || '';
-        // Check if the value is a URL or could be a link
-        const isLink = typeof value === 'string' && (
-          value.startsWith('http') || 
-          value.startsWith('/') || 
-          value.includes('@')
-        );
-        
-        if (isLink) {
-          if (value.includes('@')) {
-            return `<td class="px-4 py-2 border-b dark:border-gray-600"><a href="mailto:${value}" class="text-blue-600 dark:text-blue-400 hover:underline">${value}</a></td>`;
-          } else if (value.startsWith('/')) {
-            return `<td class="px-4 py-2 border-b dark:border-gray-600"><a href="${value}" class="text-blue-600 dark:text-blue-400 hover:underline">Voir détails</a></td>`;
-          } else {
-            return `<td class="px-4 py-2 border-b dark:border-gray-600"><a href="${value}" target="_blank" rel="noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline">Lien externe</a></td>`;
-          }
-        }
-        
-        // For other values, just show them as text
-        return `<td class="px-4 py-2 border-b dark:border-gray-600">${value}</td>`;
-      }
-    ).join('');
-    return `<tr>${cells}</tr>`;
-  }).join('');
-  
-  // Navigation buttons for the preview
-  const navigationButtons = `
-    <div class="mt-6 flex justify-between">
-      <button onclick="window.history.back()" class="px-3 py-1 text-sm bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 rounded">
-        ← Retour
-      </button>
-      <button onclick="window.print()" class="px-3 py-1 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded">
-        Imprimer
-      </button>
-    </div>
+  // Close HTML
+  html += `
+      <div class="footer">
+        © ${new Date().getFullYear()} Agri Dom - Document généré automatiquement
+      </div>
+    </body>
+    </html>
   `;
 
-  return `
-    <div class="p-6 dark:bg-gray-800 dark:text-gray-100">
-      <h2 class="text-xl font-bold mb-4">${title || `Aperçu - ${moduleName}`}</h2>
-      <div class="overflow-x-auto">
-        <table class="min-w-full border-collapse">
-          <thead>
-            <tr>${tableHeaders}</tr>
-          </thead>
-          <tbody class="dark:text-gray-300">
-            ${tableRows}
-          </tbody>
-        </table>
-      </div>
-      <div class="mt-6 text-sm text-gray-500 dark:text-gray-400 text-right">
-        <p>Date: ${new Date().toLocaleDateString(locale || 'fr-FR')}</p>
-      </div>
-      ${navigationButtons}
-    </div>
-  `;
+  return html;
 };

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { EditableField } from './ui/editable-field';
 import { EditableTable, Column } from './ui/editable-table';
@@ -17,7 +18,6 @@ import {
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { Input } from './ui/input';
-import { useParams } from 'react-router-dom';
 import { Button } from './ui/button';
 
 interface ParcelDetail {
@@ -143,7 +143,8 @@ const cropColumns: Column[] = [
 ];
 
 const GuadeloupeParcelDetail = () => {
-  const { id } = useParams<{ id: string }>();
+  // Replace useParams with a hard-coded ID since we don't use routing anymore
+  const id = '1'; // Default parcel ID
   const [parcel, setParcel] = useState<ParcelDetail>(parcelData);
   const [tasks, setTasks] = useState<TaskData[]>(initialTasks);
   const [activeTab, setActiveTab] = useState<'info' | 'crops' | 'tasks'>('info');

@@ -60,7 +60,8 @@ export const usePreviewActions = ({
       return;
     }
     
-    const html = generatePreviewHTML(data, moduleName, title, columns, settings.locale);
+    // Fix: Pass only the parameters expected by the generatePreviewHTML function
+    const html = generatePreviewHTML(data, moduleName, columns, settings.locale);
     setPreviewHTML(html);
     setPreviewOpen(true);
   };

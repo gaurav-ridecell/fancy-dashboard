@@ -1,6 +1,4 @@
-
 import React from 'react';
-import { Link } from 'react-router-dom';
 import StatisticsHeader from './statistics/StatisticsHeader';
 import ChartSelector from './statistics/ChartSelector';
 import ChartFilters from './statistics/ChartFilters';
@@ -109,14 +107,14 @@ const Statistics = () => {
       <Breadcrumb className="mb-4">
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink asChild>
-              <Link to="/">Tableau de bord</Link>
+            <BreadcrumbLink>
+              Tableau de bord
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink asChild>
-              <Link to="/statistiques">Statistiques</Link>
+            <BreadcrumbLink>
+              Statistiques
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
@@ -169,23 +167,17 @@ const Statistics = () => {
           <Button 
             variant="outline" 
             size="sm"
-            asChild
           >
-            <Link to="/">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Retour au tableau de bord
-            </Link>
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Retour au tableau de bord
           </Button>
           
           <Button 
             variant="outline" 
             size="sm"
-            asChild
           >
-            <Link to="/rapports">
-              Voir tous les rapports
-              <ChevronRight className="h-4 w-4 ml-2" />
-            </Link>
+            Voir tous les rapports
+            <ChevronRight className="h-4 w-4 ml-2" />
           </Button>
         </div>
       </div>

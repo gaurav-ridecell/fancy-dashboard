@@ -1,6 +1,4 @@
-
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
 import { 
   Home, 
   MapPin, 
@@ -21,12 +19,12 @@ import {
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const location = useLocation();
+  const [activePath, setActivePath] = useState('/');
   
-  // Close mobile menu when route changes
+  // Close mobile menu when route changes - we can keep this logic but simplify it
   useEffect(() => {
     setIsOpen(false);
-  }, [location.pathname]);
+  }, [activePath]);
   
   // Handle theme toggle
   useEffect(() => {
@@ -64,9 +62,16 @@ const Navbar = () => {
   ];
 
   const isActive = (path: string) => {
-    if (path === '/' && location.pathname === '/') return true;
-    if (path !== '/' && location.pathname.startsWith(path)) return true;
+    if (path === '/' && activePath === '/') return true;
+    if (path !== '/' && activePath.startsWith(path)) return true;
     return false;
+  };
+
+  // Create a simple handleClick function to replace Link functionality
+  const handleNavItemClick = (path: string) => {
+    setActivePath(path);
+    setIsOpen(false);
+    // We're not navigating anywhere since this is a single page app
   };
 
   return (
@@ -89,10 +94,10 @@ const Navbar = () => {
         } md:relative md:translate-x-0 flex flex-col h-full overflow-y-auto`}
       >
         <div className="p-4 border-b border-border flex items-center justify-between">
-          <Link to="/" className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2">
             <Sprout className="h-6 w-6 text-agri-primary" />
             <span className="text-lg font-bold text-foreground">Agri Dom</span>
-          </Link>
+          </div>
           <button 
             onClick={toggleTheme} 
             className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
@@ -104,15 +109,14 @@ const Navbar = () => {
 
         <nav className="flex-1 py-4 px-3 space-y-1 overflow-y-auto">
           {navItems.map((item) => (
-            <Link
+            <button
               key={item.path}
-              to={item.path}
-              className={`nav-link flex items-center space-x-3 py-3 px-4 rounded-lg transition-colors ${
+              onClick={() => handleNavItemClick(item.path)}
+              className={`nav-link flex items-center space-x-3 py-3 px-4 rounded-lg transition-colors w-full text-left ${
                 isActive(item.path) 
                   ? 'bg-agri-primary/10 text-agri-primary font-medium' 
                   : 'hover:bg-gray-100 dark:hover:bg-gray-800 text-foreground'
               }`}
-              onClick={() => setIsOpen(false)}
             >
               <item.icon className={`h-5 w-5 ${isActive(item.path) ? 'text-agri-primary' : ''}`} />
               <span>{item.title}</span>
@@ -123,7 +127,7 @@ const Navbar = () => {
                   <ChevronRight className="h-4 w-4 text-agri-primary ml-1" />
                 </div>
               )}
-            </Link>
+            </button>
           ))}
         </nav>
 
