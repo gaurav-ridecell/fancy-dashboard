@@ -25,7 +25,7 @@ const renderMyApp = (elementId: string, token: string) => {
 const KEY = 'remote-app';
 
 // Expose the render function to the window object
-window[KEY as keyof typeof window] = renderMyApp;
+(window as any)[KEY] = renderMyApp;
 
 // Initialize the app in the default root element if needed
 renderMyApp('root', '');

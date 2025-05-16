@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -20,48 +19,48 @@ export default {
 		},
 		extend: {
 			colors: {
-				border: 'hsl(var(--border))',
-				input: 'hsl(var(--input))',
-				ring: 'hsl(var(--ring))',
-				background: 'hsl(var(--background))',
-				foreground: 'hsl(var(--foreground))',
+				border: 'hsl(var(--a-074347-border))',
+				input: 'hsl(var(--a-074347-input))',
+				ring: 'hsl(var(--a-074347-ring))',
+				background: 'hsl(var(--a-074347-background))',
+				foreground: 'hsl(var(--a-074347-foreground))',
 				primary: {
-					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					DEFAULT: 'hsl(var(--a-074347-primary))',
+					foreground: 'hsl(var(--a-074347-primary-foreground))'
 				},
 				secondary: {
-					DEFAULT: 'hsl(var(--secondary))',
-					foreground: 'hsl(var(--secondary-foreground))'
+					DEFAULT: 'hsl(var(--a-074347-secondary))',
+					foreground: 'hsl(var(--a-074347-secondary-foreground))'
 				},
 				destructive: {
-					DEFAULT: 'hsl(var(--destructive))',
-					foreground: 'hsl(var(--destructive-foreground))'
+					DEFAULT: 'hsl(var(--a-074347-destructive))',
+					foreground: 'hsl(var(--a-074347-destructive-foreground))'
 				},
 				muted: {
-					DEFAULT: 'hsl(var(--muted))',
-					foreground: 'hsl(var(--muted-foreground))'
+					DEFAULT: 'hsl(var(--a-074347-muted))',
+					foreground: 'hsl(var(--a-074347-muted-foreground))'
 				},
 				accent: {
-					DEFAULT: 'hsl(var(--accent))',
-					foreground: 'hsl(var(--accent-foreground))'
+					DEFAULT: 'hsl(var(--a-074347-accent))',
+					foreground: 'hsl(var(--a-074347-accent-foreground))'
 				},
 				popover: {
-					DEFAULT: 'hsl(var(--popover))',
-					foreground: 'hsl(var(--popover-foreground))'
+					DEFAULT: 'hsl(var(--a-074347-popover))',
+					foreground: 'hsl(var(--a-074347-popover-foreground))'
 				},
 				card: {
-					DEFAULT: 'hsl(var(--card))',
-					foreground: 'hsl(var(--card-foreground))'
+					DEFAULT: 'hsl(var(--a-074347-card))',
+					foreground: 'hsl(var(--a-074347-card-foreground))'
 				},
 				sidebar: {
-					DEFAULT: 'hsl(var(--sidebar-background))',
-					foreground: 'hsl(var(--sidebar-foreground))',
-					primary: 'hsl(var(--sidebar-primary))',
-					'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-					accent: 'hsl(var(--sidebar-accent))',
-					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-					border: 'hsl(var(--sidebar-border))',
-					ring: 'hsl(var(--sidebar-ring))'
+					DEFAULT: 'hsl(var(--a-074347-sidebar-background))',
+					foreground: 'hsl(var(--a-074347-sidebar-foreground))',
+					primary: 'hsl(var(--a-074347-sidebar-primary))',
+					'primary-foreground': 'hsl(var(--a-074347-sidebar-primary-foreground))',
+					accent: 'hsl(var(--a-074347-sidebar-accent))',
+					'accent-foreground': 'hsl(var(--a-074347-sidebar-accent-foreground))',
+					border: 'hsl(var(--a-074347-sidebar-border))',
+					ring: 'hsl(var(--a-074347-sidebar-ring))'
 				},
 				// Custom color palette for agricultural theme
 				agri: {
@@ -83,9 +82,9 @@ export default {
 				}
 			},
 			borderRadius: {
-				lg: 'var(--radius)',
-				md: 'calc(var(--radius) - 2px)',
-				sm: 'calc(var(--radius) - 4px)'
+				lg: 'var(--a-074347-radius)',
+				md: 'calc(var(--a-074347-radius) - 2px)',
+				sm: 'calc(var(--a-074347-radius) - 4px)'
 			},
 			keyframes: {
 				'accordion-down': {
