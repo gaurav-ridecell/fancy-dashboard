@@ -1,18 +1,31 @@
 
-import React from 'react';
+import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import './index.css';
 
-const container = document.getElementById('root');
+// Define the render function that takes elementId and token as parameters
+const renderMyApp = (elementId: string, token: string) => {
+  const container = document.getElementById(elementId);
+  
+  if (!container) {
+    console.error(`Failed to find the element with id: ${elementId}`);
+    return;
+  }
+  
+  const root = createRoot(container);
+  root.render(
+    <StrictMode>
+      <App token={token} />
+    </StrictMode>
+  );
+};
 
-if (!container) {
-  throw new Error('Failed to find the root element');
-}
+// Define the specific key for the window object
+const KEY = 'remote-app';
 
-const root = createRoot(container);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+// Expose the render function to the window object
+window[KEY as keyof typeof window] = renderMyApp;
+
+// Initialize the app in the default root element if needed
+renderMyApp('root', '');

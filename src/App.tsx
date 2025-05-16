@@ -19,12 +19,21 @@ const queryClient = new QueryClient({
   },
 });
 
+interface AppProps {
+  token?: string;
+}
+
 // Application main component with properly nested providers
-const App = () => {
+const App = ({ token }: AppProps) => {
   useEffect(() => {
     // Track page view for analytics
     trackPageView('parcelles');
-  }, []);
+    
+    // Optional: You can use the token here if needed
+    if (token) {
+      console.log('App initialized with token:', token);
+    }
+  }, [token]);
   
   return (
     <QueryClientProvider client={queryClient}>
