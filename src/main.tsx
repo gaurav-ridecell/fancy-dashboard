@@ -22,10 +22,8 @@ const renderMyApp = (elementId: string, token: string) => {
 };
 
 // Define the specific key for the window object
-const KEY = 'remote-app';
+const KEY = 'a-074347';
 
 // Expose the render function to the window object
-(window as any)[KEY] = renderMyApp;
+window[KEY] = renderMyApp;
 
-// Initialize the app in the default root element if needed
-renderMyApp('root', '');
